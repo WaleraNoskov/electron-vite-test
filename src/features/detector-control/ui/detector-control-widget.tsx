@@ -1,27 +1,24 @@
-import { ToggleButtonGroup, ToggleButton, Form } from "react-aria-components";
 import "./detector-control-widget.css";
+import { SegmentedControl, Stack, Text, Title } from "@mantine/core";
 
 function DetectorControlWidget() {
   return (
-    <Form>
-      <label>Выдержка</label>
-      <p className="status-text">200мс</p>
-      <ToggleButtonGroup>
-        <ToggleButton id="50">50</ToggleButton>
-        <ToggleButton id="100">100</ToggleButton>
-        <ToggleButton id="200">200</ToggleButton>
-        <ToggleButton id="500">500</ToggleButton>
-        <ToggleButton id="1000">1000</ToggleButton>
-        <ToggleButton id="2000">2000</ToggleButton>
-      </ToggleButtonGroup>
+    <Stack gap="xs">
+      <Title order={4}>Vivix T43-43</Title>
 
-      <div>Усиление</div>
-      <ToggleButtonGroup>
-        <ToggleButton id="1">1</ToggleButton>
-        <ToggleButton id="2">2</ToggleButton>
-        <ToggleButton id="4">4</ToggleButton>
-      </ToggleButtonGroup>
-    </Form>
+      <div>
+        <Text>Экспозиция</Text>
+        <SegmentedControl
+          radius="md"
+          size="lg"
+          data={["50", "100", "500", "1000", "2000"]}
+        />
+      </div>
+      <div>
+        <Text>Усиление</Text>
+        <SegmentedControl size="lg" data={["1", "2", "4"]} radius="md" />
+      </div>
+    </Stack>
   );
 }
 
