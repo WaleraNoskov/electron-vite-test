@@ -1,5 +1,5 @@
 ## Что из себя представляет
-- Создано из шаблона (```npm create @quick-start/electron@latest my-app -- --template vue```).
+- Создано из шаблона (```npm create @quick-start/electron@latest my-app -- --template react```).
 - Представляет из себя React приложение, которое запускается в сервере Vite. За счет Electron запускается как оконное приложение (можно открыть инструменты отладки по F12).
 - Используется библиотека контролов [Mantine](https://mantine.dev/core/package/) - очень популярное, кастомизируемое и открытое (MIT) решение.
 - Реализуется подход [Future Sliced Design](https://feature-sliced.design/) *(на данный момент можно посмотреть features/detector-control)*.
