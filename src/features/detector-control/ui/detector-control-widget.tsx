@@ -12,8 +12,9 @@ import {
   setGain,
   DetectorState,
   setConnected,
-} from "../../../entities/detector/model/detectorSlice.ts";
+} from "../../../entities/detector/detectorSlice.ts";
 import { useAppSelector, useAppDispatch } from "../../../application/hooks.ts";
+import { detectorSignalrService } from "../../../entities/detector/detectorSignalrService.ts";
 
 function DetectorControlWidget() {
   const dispatch = useAppDispatch();
@@ -51,7 +52,7 @@ function DetectorControlWidget() {
           radius="md"
           value={detector.gain.toString()}
           onChange={(g) => {
-            dispatch(setGain(g));
+            dispatch(setGain(parseInt(g)));
           }}
         />
       </div>
@@ -62,6 +63,12 @@ function DetectorControlWidget() {
         variant={"light"}
       >
         {detector.connected ? "Отключить" : "Подключить"}
+      </Button>
+      <Button
+        mt={"md"}
+        onClick={() => void detectorSignalrService.triggerMessage()}
+      >
+        Обновить
       </Button>
     </Stack>
   );
