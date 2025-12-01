@@ -7,17 +7,11 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import {
-  setExposure,
-  setGain,
-  DetectorState,
-  setConnected,
-} from "../../../entities/detector/detectorSlice.ts";
-import { useAppSelector, useAppDispatch } from "../../../application/hooks.ts";
-import { detectorSignalrService } from "../../../entities/detector/detectorSignalrService.ts";
+import { DetectorState } from "../../../entities/detector/detectorSlice.ts";
+import { useAppSelector } from "../../../application/hooks.ts";
+import { detectorService } from "../../../entities/detector/detectorService.ts";
 
 function DetectorControlWidget() {
-  const dispatch = useAppDispatch();
   const detector: DetectorState = useAppSelector((state) => state.detector);
 
   return (
@@ -38,8 +32,8 @@ function DetectorControlWidget() {
           value={detector.exposure.toString()}
           data={["50", "100", "500", "1000", "2000"]}
           onChange={(e) => {
-            const num = parseInt(e, 10);
-            dispatch(setExposure(num));
+            const num = parseInt(e);
+            void detectorService.setExposure(num);
           }}
         />
       </div>
@@ -52,22 +46,12 @@ function DetectorControlWidget() {
           radius="md"
           value={detector.gain.toString()}
           onChange={(g) => {
-            dispatch(setGain(parseInt(g)));
+            const num = parseInt(g);
+            void detectorService.setGain(num);
           }}
         />
       </div>
-
-      <Button
-        mt={"md"}
-        onClick={() => dispatch(setConnected(!detector.connected))}
-        variant={"light"}
-      >
-        {detector.connected ? "Отключить" : "Подключить"}
-      </Button>
-      <Button
-        mt={"md"}
-        onClick={() => void detectorSignalrService.triggerMessage()}
-      >
+      <Button mt={"md"} onClick={() => void detectorService.refresh()}>
         Обновить
       </Button>
     </Stack>
