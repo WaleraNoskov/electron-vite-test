@@ -1,4 +1,4 @@
-import "./detector-control-widget.css";
+import "./detectorControlWidget.css";
 import {
   Button,
   Flex,
@@ -7,9 +7,9 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { DetectorState } from "../../../entities/detector/detectorSlice.ts";
 import { useAppSelector } from "../../../application/hooks.ts";
-import { detectorService } from "../../../entities/detector/detectorService.ts";
+import { DetectorState } from "../../../entities/detector/model/types.ts";
+import { detectorService } from "../model/detectorService.ts";
 
 function DetectorControlWidget() {
   const detector: DetectorState = useAppSelector((state) => state.detector);
@@ -51,8 +51,9 @@ function DetectorControlWidget() {
           }}
         />
       </div>
-      <Button mt={"md"} onClick={() => void detectorService.refresh()}>
-        Обновить
+
+      <Button mt="md" onClick={() => void detectorService.reconnect()}>
+        Переподключить
       </Button>
     </Stack>
   );

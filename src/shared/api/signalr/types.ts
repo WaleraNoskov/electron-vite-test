@@ -4,3 +4,9 @@ export interface DetectorStateDto {
   gain: number;
   connected: boolean;
 }
+
+export interface ImageDto {
+  width: number;
+  height: number;
+  array: number[];
+}

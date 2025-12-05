@@ -1,17 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface DetectorState {
-  name: string;
-  connected: boolean;
-  exposure: number;
-  gain: number;
-}
+import { DetectorState } from "./types";
 
 const initialState: DetectorState = {
-  name: "Vivix T43-43",
+  name: "Неизвестный детектор",
   connected: false,
-  exposure: 1000,
-  gain: 2,
+  exposure: 0,
+  gain: 0,
+  image: null,
 };
 
 export const detectorSlice = createSlice({
