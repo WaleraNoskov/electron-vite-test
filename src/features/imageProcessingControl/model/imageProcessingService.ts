@@ -14,4 +14,4 @@ class ImageProcessingService {
   }
 }
 
-export const detectorImageService = new ImageProcessingService();
+export const imageProcessingService = new ImageProcessingService();

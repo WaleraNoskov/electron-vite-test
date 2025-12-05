@@ -3,6 +3,7 @@ import { AppShell, Burger, Text, Group, Flex, Center } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { DetectorControlWidget } from "../../../features/detectorControl/ui/detectorControlWidget.tsx";
 import { DetectorLiveView } from "../../../features/detectorLiveView/ui/detectorILiveViewWidget.tsx";
+import { FiltersSelection } from "../../../features/imageProcessingControl/ui/filtersSelection.tsx";
 
 function ManualModePage() {
   const [opened, { toggle }] = useDisclosure();
@@ -31,6 +32,7 @@ function ManualModePage() {
       <AppShell.Aside p="md">
         <Flex direction="column">
           <DetectorControlWidget />
+          <FiltersSelection />
         </Flex>
       </AppShell.Aside>
       {/*<AppShell.Footer p="md">Footer</AppShell.Footer>*/}
