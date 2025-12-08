@@ -10,9 +10,9 @@ function ManualModePage() {
   return (
     <AppShell
       layout="alt"
-      navbar={{ width: 440, breakpoint: "sm", collapsed: { mobile: !opened } }}
+      navbar={{ width: 470, breakpoint: "sm", collapsed: { mobile: !opened } }}
       aside={{
-        width: 440,
+        width: 470,
         breakpoint: "md",
         collapsed: { desktop: false, mobile: true },
       }}
@@ -30,12 +30,11 @@ function ManualModePage() {
         </Center>
       </AppShell.Main>
       <AppShell.Aside p="md">
-        <Flex direction="column">
+        <Flex direction="column" gap="md">
           <DetectorControlWidget />
           <FiltersSelection />
         </Flex>
       </AppShell.Aside>
-      {/*<AppShell.Footer p="md">Footer</AppShell.Footer>*/}
     </AppShell>
   );
 }
