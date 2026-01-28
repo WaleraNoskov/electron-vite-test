@@ -20,3 +20,9 @@ export interface SetCalibrationsDto {
   enableOffset: boolean;
   enableGain: boolean;
 }
+
+export interface ImageDto {
+  width: number;
+  height: number;
+  array: number[];
+}

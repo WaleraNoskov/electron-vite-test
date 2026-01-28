@@ -1,11 +1,12 @@
 import hardwareSignalrConnection from "./hardwareSignalrConnection.ts";
-import { AppStore } from "../../../../application/store.ts";
-import { DynamicDetectorStateDto } from "../../dto";
+import { AppStore, frameStore } from "../../../../application/store.ts";
+import { DynamicDetectorStateDto, ImageDto } from "../../dto";
 import {
   connectedChanged,
   modeChanged,
   nameChanged,
 } from "../../../../entities/dynamicDetector";
+import { frameReceived } from "../../../../features/detectorFrameRate";
 
 export function initSignalrListeners(store: AppStore) {
   hardwareSignalrConnection.on(
@@ -16,4 +17,11 @@ export function initSignalrListeners(store: AppStore) {
       store.dispatch(modeChanged(value.currentMode));
     },
   );
+
+  hardwareSignalrConnection.on("newDetectorImage", (value: ImageDto) => {
+    const image = new Uint16Array(value.array);
+    frameStore.addFrame(image);
+
+    store.dispatch(frameReceived({ timestamp: Date.now() }));
+  });
 }

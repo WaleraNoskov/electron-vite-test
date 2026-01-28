@@ -1,1 +1,1 @@
-export { useDebouncedDynamicDetectorControl } from "./model/useDebouncedDynamicDetectorControl.ts";
+export { useDynamicDetectorControl } from "./model/useDynamicDetectorControl.ts";
