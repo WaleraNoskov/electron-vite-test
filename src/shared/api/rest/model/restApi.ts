@@ -42,7 +42,9 @@ class DetectorApi {
   }
 
   async offsetCalibration(): Promise<void> {
-    const res = await fetch(API_URL + "/detector/offset-calibration", {});
+    const res = await fetch(API_URL + "/detector/offset-calibration", {
+      method: "POST",
+    });
 
     if (!res.ok) throw new Error("Could not get detector offset-calibration");
   }

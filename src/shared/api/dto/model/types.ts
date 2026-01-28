@@ -1,12 +1,17 @@
-export interface DynamicDetectorStateDto {
-  name: string;
+export interface DynamicDetectorModeDto {
+  id: number;
   exposure: number;
   gain: number;
-  connected: boolean;
+  isOffsetCalibrationExist: boolean;
+  isOffsetCalibrationEnabled: boolean;
+  isOffsetCalibrationApplied: boolean;
+  isGainCalibrationExist: boolean;
+  isGainCalibrationEnabled: boolean;
+  isGainCalibrationApplied: boolean;
 }
 
-export interface ImageDto {
-  width: number;
-  height: number;
-  array: number[];
+export interface DynamicDetectorStateDto {
+  name: string;
+  connected: boolean;
+  currentMode: DynamicDetectorModeDto;
 }

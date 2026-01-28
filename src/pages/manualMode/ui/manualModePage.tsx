@@ -3,6 +3,7 @@ import { Flex, Grid } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "../../../application/hooks.ts";
 import { useEffect } from "react";
 import { fetchDynamicDetectorState } from "../../../features/dynamicDetectorControl/model/thunks.ts";
+import { DynamicDetectorSettingsWidget } from "../../../widgets/dynamicDetectorSettingsWidget/ui/dynamicDetectorSettingsWidget.tsx";
 
 function ManualModePage() {
   const dispatch = useAppDispatch();
@@ -17,8 +18,9 @@ function ManualModePage() {
       <Grid>
         <Grid.Col span={3}></Grid.Col>
         <Grid.Col span={6}>
-          <Flex direction="column">
+          <Flex direction="column" gap="xl">
             <DynamicDetectorControlWidget state={detector} />
+            <DynamicDetectorSettingsWidget state={detector} />
           </Flex>
         </Grid.Col>
         <Grid.Col span={3}></Grid.Col>
