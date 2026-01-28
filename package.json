@@ -45,6 +45,7 @@
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.6.2",
+    "sass-embedded": "^1.97.3",
     "typescript": "^5.2.2",
     "vite": "^7.2.4",
     "vite-plugin-electron": "^0.28.6",

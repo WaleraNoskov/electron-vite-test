@@ -8,7 +8,7 @@ module.exports = {
     project: ["./tsconfig.json", "./tsconfig.node.json"],
     tsconfigRootDir: __dirname,
   },
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "@typescript-eslint"],
   extends: [
     "eslint:recommended",
 
