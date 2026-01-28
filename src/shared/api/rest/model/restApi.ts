@@ -1,4 +1,4 @@
-import { DynamicDetectorStateDto } from "../../dto";
+import { DynamicDetectorStateDto, SetCalibrationsDto } from "../../dto";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -44,6 +44,26 @@ class DetectorApi {
   async offsetCalibration(): Promise<void> {
     const res = await fetch(API_URL + "/detector/offset-calibration", {
       method: "POST",
+    });
+
+    if (!res.ok) throw new Error("Could not get detector offset-calibration");
+  }
+
+  async gainCalibration(): Promise<void> {
+    const res = await fetch(API_URL + "/detector/gain-calibration", {
+      method: "POST",
+    });
+
+    if (!res.ok) throw new Error("Could not get detector offset-calibration");
+  }
+
+  async setCalibrations(dto: SetCalibrationsDto): Promise<void> {
+    const res = await fetch(API_URL + "/detector/set-calibrations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dto),
     });
 
     if (!res.ok) throw new Error("Could not get detector offset-calibration");

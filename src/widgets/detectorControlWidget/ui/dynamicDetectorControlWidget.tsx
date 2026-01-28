@@ -23,7 +23,7 @@ export const DynamicDetectorControlWidget: FC<
       </Text>
       <div>
         <SegmentedControl
-          disabled={!props.state.connected}
+          disabled={!props.state.connected || props.state.isChangingSettings}
           value={props.state.currentMode.exposure.toString()}
           data={["50", "100", "500", "1000", "2000"]}
           fullWidth={false}
@@ -36,7 +36,7 @@ export const DynamicDetectorControlWidget: FC<
 
       <div>
         <SegmentedControl
-          disabled={!props.state.connected}
+          disabled={!props.state.connected || props.state.isChangingSettings}
           value={props.state.currentMode.gain.toString()}
           data={["1", "2", "4"]}
           onChange={(e) => {

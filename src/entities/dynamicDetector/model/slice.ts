@@ -16,9 +16,7 @@ export interface DynamicDetectorState {
   name: string;
   connected: boolean;
   currentMode: DynamicDetectorMode;
-  isOffsetCalibrating: boolean;
-  isGainCalibrating: boolean;
-  isReconnecting: boolean;
+  isChangingSettings: boolean;
 }
 
 const initialState: DynamicDetectorState = {
@@ -35,9 +33,7 @@ const initialState: DynamicDetectorState = {
     isGainCalibrationEnabled: false,
     isGainCalibrationApplied: false,
   },
-  isOffsetCalibrating: false,
-  isGainCalibrating: false,
-  isReconnecting: false,
+  isChangingSettings: false,
 };
 
 const dynamicDetectorSlice = createSlice({
@@ -53,14 +49,8 @@ const dynamicDetectorSlice = createSlice({
     connectedChanged: (state, action: PayloadAction<boolean>) => {
       state.connected = action.payload;
     },
-    isOffsetCalibratingChanged: (state, action: PayloadAction<boolean>) => {
-      state.isOffsetCalibrating = action.payload;
-    },
-    isGainCalibrationChanged: (state, action: PayloadAction<boolean>) => {
-      state.isGainCalibrating = action.payload;
-    },
-    isReconnectingChanged: (state, action: PayloadAction<boolean>) => {
-      state.isReconnecting = action.payload;
+    isChangingSettingsChanged: (state, action: PayloadAction<boolean>) => {
+      state.isChangingSettings = action.payload;
     },
   },
 });
@@ -69,9 +59,7 @@ export const {
   nameChanged,
   modeChanged,
   connectedChanged,
-  isOffsetCalibratingChanged,
-  isGainCalibrationChanged,
-  isReconnectingChanged,
+  isChangingSettingsChanged,
 } = dynamicDetectorSlice.actions;
 dynamicDetectorSlice.actions;
 export const detectorReducer = dynamicDetectorSlice.reducer;

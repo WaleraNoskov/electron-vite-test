@@ -15,3 +15,8 @@ export interface DynamicDetectorStateDto {
   connected: boolean;
   currentMode: DynamicDetectorModeDto;
 }
+
+export interface SetCalibrationsDto {
+  enableOffset: boolean;
+  enableGain: boolean;
+}

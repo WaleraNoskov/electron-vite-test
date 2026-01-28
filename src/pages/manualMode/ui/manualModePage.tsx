@@ -3,7 +3,7 @@ import { Flex, Grid } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "../../../application/hooks.ts";
 import { useEffect } from "react";
 import { fetchDynamicDetectorState } from "../../../features/dynamicDetectorControl/model/thunks.ts";
-import { DynamicDetectorSettingsWidget } from "../../../widgets/dynamicDetectorSettingsWidget/ui/dynamicDetectorSettingsWidget.tsx";
+import { DynamicDetectorSettingsWidget } from "../../../widgets/dynamicDetectorSettingsWidget";
 
 function ManualModePage() {
   const dispatch = useAppDispatch();
