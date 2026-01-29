@@ -7,7 +7,7 @@ export interface ImageProcessingState {
 }
 
 const initialState: ImageProcessingState = {
-  isOnline: false,
+  isOnline: true,
   frame: null,
 };
 
@@ -15,14 +15,14 @@ const imageProcessingSlice = createSlice({
   name: "imageProcessing",
   initialState,
   reducers: {
-    isOnlineChanged: (
+    changeIsOnline: (
       state: ImageProcessingState,
       action: PayloadAction<boolean>,
     ) => {
       state.isOnline = action.payload;
     },
 
-    imageChanged: (
+    changeCurrentFrame: (
       state: ImageProcessingState,
       action: PayloadAction<Frame>,
     ) => {
@@ -31,5 +31,6 @@ const imageProcessingSlice = createSlice({
   },
 });
 
-export const { isOnlineChanged, imageChanged } = imageProcessingSlice.actions;
+export const { changeIsOnline, changeCurrentFrame } =
+  imageProcessingSlice.actions;
 export const imageProcessingReducer = imageProcessingSlice.reducer;

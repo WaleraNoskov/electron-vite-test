@@ -40,26 +40,26 @@ const dynamicDetectorSlice = createSlice({
   name: "detector",
   initialState,
   reducers: {
-    nameChanged: (state, action: PayloadAction<string>) => {
+    changeName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
-    modeChanged: (state, action: PayloadAction<DynamicDetectorMode>) => {
+    changeMode: (state, action: PayloadAction<DynamicDetectorMode>) => {
       state.currentMode = action.payload;
     },
-    connectedChanged: (state, action: PayloadAction<boolean>) => {
+    changeConnected: (state, action: PayloadAction<boolean>) => {
       state.connected = action.payload;
     },
-    isChangingSettingsChanged: (state, action: PayloadAction<boolean>) => {
+    changeIsSettingsChanging: (state, action: PayloadAction<boolean>) => {
       state.isChangingSettings = action.payload;
     },
   },
 });
 
 export const {
-  nameChanged,
-  modeChanged,
-  connectedChanged,
-  isChangingSettingsChanged,
+  changeName,
+  changeMode,
+  changeConnected,
+  changeIsSettingsChanging,
 } = dynamicDetectorSlice.actions;
 dynamicDetectorSlice.actions;
 export const dynamicDetectorReducer = dynamicDetectorSlice.reducer;

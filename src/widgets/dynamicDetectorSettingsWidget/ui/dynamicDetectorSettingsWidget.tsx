@@ -8,7 +8,7 @@ import {
   selectIsGainCalibrating,
   selectIsOffsetCalibrating,
   selectIsReconnecting,
-} from "../../../features/dunamicDetectorSettingsControl/model/selectors.ts";
+} from "../../../features/dunamicDetectorSettingsControl";
 import { useAppSelector } from "../../../application/hooks.ts";
 
 export const DynamicDetectorSettingsWidget = () => {

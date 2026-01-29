@@ -1,5 +1,5 @@
 export interface Frame {
-  image: Uint16Array;
+  array: Uint16Array;
   width: number;
   height: number;
 }

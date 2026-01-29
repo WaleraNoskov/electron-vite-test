@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { detectorApi } from "../../../shared/api/rest";
 import {
-  connectedChanged,
-  modeChanged,
-  nameChanged,
+  changeConnected,
+  changeMode,
+  changeName,
 } from "../../../entities/dynamicDetector";
 
 export const changeDynamicDetectorExposure = createAsyncThunk<void, number>(
@@ -27,8 +27,8 @@ export const fetchDynamicDetectorState = createAsyncThunk(
 
     if (!state) return;
 
-    dispatch(nameChanged(state.name));
-    dispatch(connectedChanged(state.connected));
-    dispatch(modeChanged(state.currentMode));
+    dispatch(changeName(state.name));
+    dispatch(changeConnected(state.connected));
+    dispatch(changeMode(state.currentMode));
   },
 );

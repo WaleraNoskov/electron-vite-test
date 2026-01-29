@@ -4,12 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../../application/hooks.ts";
 import { useEffect } from "react";
 import { fetchDynamicDetectorState } from "../../../features/dynamicDetectorControl/model/thunks.ts";
 import { DynamicDetectorSettingsWidget } from "../../../widgets/dynamicDetectorSettingsWidget";
-import { FrameRateCounter } from "../../../features/detectorFrameRate/ui/frameRateCounter.tsx";
+import { ImageEditingWidget } from "../../../widgets/imageEditingWidget/ui/imageEditingWidget.tsx";
 
 function ManualModePage() {
   const dispatch = useAppDispatch();
   const detector = useAppSelector((state) => state.dynamicDetector);
-  const fps = useAppSelector((state) => state.detectorFrameRate.fps);
 
   useEffect(() => {
     if (!detector) void dispatch(fetchDynamicDetectorState());
@@ -18,15 +17,15 @@ function ManualModePage() {
   return (
     <>
       <Grid>
-        <Grid.Col span={3}></Grid.Col>
-        <Grid.Col span={6}>
-          <Flex direction="column" gap="xl">
-            <DynamicDetectorControlWidget state={detector} />
-            <DynamicDetectorSettingsWidget state={detector} />
-            <FrameRateCounter fps={fps} />
+        <Grid.Col span={9}>
+          <ImageEditingWidget />
+        </Grid.Col>
+        <Grid.Col span={3}>
+          <Flex direction="column" gap="xl" px="xl">
+            <DynamicDetectorControlWidget />
+            <DynamicDetectorSettingsWidget />
           </Flex>
         </Grid.Col>
-        <Grid.Col span={3}></Grid.Col>
       </Grid>
     </>
   );
