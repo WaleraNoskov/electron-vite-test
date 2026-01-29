@@ -10,7 +10,7 @@ export const dynamicDetectorOffsetCalibration = createAsyncThunk(
 );
 
 export const dynamicDetectorGainCalibration = createAsyncThunk(
-  "dynamicDetectorControl/offsetCalibration",
+  "dynamicDetectorControl/gainCalibration",
   async () => {
     await detectorApi.gainCalibration();
   },
