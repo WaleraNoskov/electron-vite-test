@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { detectorReducer } from "../entities/dynamicDetector";
+import { dynamicDetectorReducer } from "../entities/dynamicDetector";
 import { initSignalrListeners } from "../shared/api/signalr/model/init.ts";
 import { FrameStore } from "../shared/services/frameBuffer";
 import { detectorFrameRateReducer } from "../features/detectorFrameRate";
+import { imageProcessingReducer } from "../entities/imageProcessing";
 
 export const store = configureStore({
   reducer: {
     //core reducers
-    dynamicDetector: detectorReducer,
+    dynamicDetector: dynamicDetectorReducer,
+    imageProcessing: imageProcessingReducer,
 
     //feature reducers
     detectorFrameRate: detectorFrameRateReducer,

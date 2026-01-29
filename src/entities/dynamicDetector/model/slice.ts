@@ -62,4 +62,4 @@ export const {
   isChangingSettingsChanged,
 } = dynamicDetectorSlice.actions;
 dynamicDetectorSlice.actions;
-export const detectorReducer = dynamicDetectorSlice.reducer;
+export const dynamicDetectorReducer = dynamicDetectorSlice.reducer;
