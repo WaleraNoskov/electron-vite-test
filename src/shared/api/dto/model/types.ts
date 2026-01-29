@@ -26,3 +26,8 @@ export interface ImageDto {
   height: number;
   array: number[];
 }
+
+export interface UpdateOutputPipelineInputDto {
+  filter: number;
+  enableAutoHistogram: boolean;
+}

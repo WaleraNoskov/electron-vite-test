@@ -1,1 +1,1 @@
-export * from "./model/restApi.ts";
+export * from "./model/detectorApi.ts";

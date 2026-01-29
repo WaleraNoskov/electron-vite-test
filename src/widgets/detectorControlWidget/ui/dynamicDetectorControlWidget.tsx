@@ -1,7 +1,7 @@
 import { useDynamicDetectorControl } from "../../../features/dynamicDetectorControl";
 import { Flex, SegmentedControl, Text, Title } from "@mantine/core";
 import { useAppSelector } from "../../../application/hooks.ts";
-import { selectDetectorState } from "../../../features/dynamicDetectorControl/model/selectors.ts";
+import { selectDetectorState } from "../../../features/dynamicDetectorControl";
 
 export const DynamicDetectorControlWidget = () => {
   const { setExposure, setGain } = useDynamicDetectorControl();

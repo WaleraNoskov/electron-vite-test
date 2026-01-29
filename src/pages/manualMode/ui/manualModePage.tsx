@@ -1,10 +1,11 @@
 import { DynamicDetectorControlWidget } from "../../../widgets/detectorControlWidget";
-import { Flex, Grid } from "@mantine/core";
+import { Center, Flex } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "../../../application/hooks.ts";
 import { useEffect } from "react";
 import { fetchDynamicDetectorState } from "../../../features/dynamicDetectorControl/model/thunks.ts";
 import { DynamicDetectorSettingsWidget } from "../../../widgets/dynamicDetectorSettingsWidget";
-import { ImageEditingWidget } from "../../../widgets/imageEditingWidget/ui/imageEditingWidget.tsx";
+import { ImageViewWidget } from "../../../widgets/imageViewWidget";
+import { FilterSwitcherWidget } from "../../../widgets/filterSwitcherWidget/ui/filterSwitcherWidget.tsx";
 
 function ManualModePage() {
   const dispatch = useAppDispatch();
@@ -15,19 +16,16 @@ function ManualModePage() {
   });
 
   return (
-    <>
-      <Grid>
-        <Grid.Col span={9}>
-          <ImageEditingWidget />
-        </Grid.Col>
-        <Grid.Col span={3}>
-          <Flex direction="column" gap="xl" px="xl">
-            <DynamicDetectorControlWidget />
-            <DynamicDetectorSettingsWidget />
-          </Flex>
-        </Grid.Col>
-      </Grid>
-    </>
+    <Center>
+      <Flex gap="xl">
+        <ImageViewWidget />
+        <Flex direction="column" gap="xl">
+          <DynamicDetectorControlWidget />
+          <DynamicDetectorSettingsWidget />
+          <FilterSwitcherWidget />
+        </Flex>
+      </Flex>
+    </Center>
   );
 }
 

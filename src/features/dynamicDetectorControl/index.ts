@@ -1,2 +1,2 @@
-export { useDynamicDetectorControl } from "./model/useDynamicDetectorControl.ts";
+export { useDynamicDetectorControl } from "./hooks/useDynamicDetectorControl.ts";
 export * from "./model/selectors.ts";

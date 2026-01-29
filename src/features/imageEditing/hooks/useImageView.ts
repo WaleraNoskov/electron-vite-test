@@ -1,8 +1,8 @@
 import { useAppSelector } from "../../../application/hooks.ts";
 import { useEffect, useRef, useState } from "react";
-import { selectImageProcessingState } from "./selectors.ts";
+import { selectImageProcessingState } from "../model/selectors.ts";
 
-export function useImageEditing() {
+export function useImageView() {
   const imageEditing = useAppSelector(selectImageProcessingState);
 
   const [fps, setFps] = useState(0);
@@ -10,9 +10,7 @@ export function useImageEditing() {
   const ref = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    console.log("1");
     const ctx = ref.current?.getContext("2d");
-    console.log("2");
 
     if (!imageEditing.frame || !ctx) return;
 

@@ -1,8 +1,8 @@
-import { useImageEditing } from "../../../features/imageEditing";
+import { useImageView } from "../../../features/imageEditing";
 import { Flex, Group, Text } from "@mantine/core";
 
-export const ImageEditingWidget = () => {
-  const { frame, fps, ref } = useImageEditing();
+export const ImageViewWidget = () => {
+  const { frame, fps, ref } = useImageView();
 
   return (
     <>

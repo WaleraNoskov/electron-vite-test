@@ -4,11 +4,13 @@ import { Frame } from "./types.ts";
 export interface ImageProcessingState {
   isOnline: boolean;
   frame: Frame | null;
+  filter: number;
 }
 
 const initialState: ImageProcessingState = {
   isOnline: true,
   frame: null,
+  filter: 0,
 };
 
 const imageProcessingSlice = createSlice({
@@ -28,9 +30,16 @@ const imageProcessingSlice = createSlice({
     ) => {
       state.frame = action.payload;
     },
+
+    changeFilter: (
+      state: ImageProcessingState,
+      action: PayloadAction<number>,
+    ) => {
+      state.filter = action.payload;
+    },
   },
 });
 
-export const { changeIsOnline, changeCurrentFrame } =
+export const { changeFilter, changeIsOnline, changeCurrentFrame } =
   imageProcessingSlice.actions;
 export const imageProcessingReducer = imageProcessingSlice.reducer;

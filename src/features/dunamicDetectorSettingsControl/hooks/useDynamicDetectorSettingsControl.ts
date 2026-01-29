@@ -4,7 +4,7 @@ import {
   dynamicDetectorOffsetCalibration,
   dynamicDetectorReconnect,
   setDynamicDetectorCalibrations,
-} from "./thunks.ts";
+} from "../model/thunks.ts";
 
 export function useDynamicDetectorSettingsControl() {
   const dispatch = useAppDispatch();

@@ -2,7 +2,7 @@ import { useAppDispatch } from "../../../application/hooks.ts";
 import {
   changeDynamicDetectorExposure,
   changeDynamicDetectorGain,
-} from "./thunks.ts";
+} from "../model/thunks.ts";
 import { changeIsSettingsChanging } from "../../../entities/dynamicDetector";
 
 export function useDynamicDetectorControl() {

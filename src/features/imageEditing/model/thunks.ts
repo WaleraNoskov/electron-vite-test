@@ -1,6 +1,12 @@
-import { Frame, changeCurrentFrame } from "../../../entities/imageProcessing";
+import {
+  Frame,
+  changeCurrentFrame,
+  changeFilter,
+} from "../../../entities/imageProcessing";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../../application/store.ts";
+import { UpdateOutputPipelineInputDto } from "../../../shared/api/dto";
+import { imageEditingApi } from "../../../shared/api/rest/model/imageEditingApi.ts";
 
 export const imageEditingFrameReceived = createAsyncThunk<void, Frame>(
   "imageEditing/imageProcessingFrameReceived",
@@ -13,3 +19,12 @@ export const imageEditingFrameReceived = createAsyncThunk<void, Frame>(
     }
   },
 );
+
+export const trySetFilter = createAsyncThunk<
+  void,
+  UpdateOutputPipelineInputDto
+>("imageEditing/trySetFilter", async (dto, { dispatch }) => {
+  await imageEditingApi.updateOutputPipeline(dto);
+
+  dispatch(changeFilter(dto.filter));
+});
