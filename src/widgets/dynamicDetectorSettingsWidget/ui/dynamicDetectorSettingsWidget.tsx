@@ -1,9 +1,8 @@
-import { FC } from "react";
-import { DynamicDetectorState } from "../../../entities/dynamicDetector";
 import { useDynamicDetectorSettingsControl } from "../../../features/dunamicDetectorSettingsControl";
 import { Button, Flex, Group, Text, Title } from "@mantine/core";
 import { FaCheck } from "react-icons/fa6";
 import {
+  selectDetectorState,
   selectIsEnablingGain,
   selectIsEnablingOffset,
   selectIsGainCalibrating,
@@ -12,13 +11,7 @@ import {
 } from "../../../features/dunamicDetectorSettingsControl/model/selectors.ts";
 import { useAppSelector } from "../../../application/hooks.ts";
 
-interface DynamicDetectorControlWidgetProps {
-  state: DynamicDetectorState;
-}
-
-export const DynamicDetectorSettingsWidget: FC<
-  DynamicDetectorControlWidgetProps
-> = (props) => {
+export const DynamicDetectorSettingsWidget = () => {
   const { offsetCalibration, gainCalibration, reconnect, setCalibrations } =
     useDynamicDetectorSettingsControl();
 
@@ -27,8 +20,9 @@ export const DynamicDetectorSettingsWidget: FC<
   const isGainCalibrating = useAppSelector(selectIsGainCalibrating);
   const isSetGainCalibration = useAppSelector(selectIsEnablingGain);
   const isReconnecting = useAppSelector(selectIsReconnecting);
+  const detectorState = useAppSelector(selectDetectorState);
 
-  if (!props.state) return;
+  if (!detectorState) return;
 
   return (
     <>
@@ -39,7 +33,7 @@ export const DynamicDetectorSettingsWidget: FC<
           <Group>
             <FaCheck
               visibility={
-                props.state.currentMode.isOffsetCalibrationApplied
+                detectorState.currentMode.isOffsetCalibrationApplied
                   ? "visible"
                   : "collapse"
               }
@@ -47,25 +41,25 @@ export const DynamicDetectorSettingsWidget: FC<
             <Button
               variant="light"
               disabled={
-                !props.state.connected || props.state.isChangingSettings
+                !detectorState.connected || detectorState.isChangingSettings
               }
               size="xs"
               loading={isSetOffsetCalibration}
               onClick={() => {
                 void setCalibrations(
-                  !props.state.currentMode.isOffsetCalibrationApplied,
-                  props.state.currentMode.isGainCalibrationApplied,
+                  !detectorState.currentMode.isOffsetCalibrationApplied,
+                  detectorState.currentMode.isGainCalibrationApplied,
                 );
               }}
             >
-              {props.state.currentMode.isOffsetCalibrationApplied
+              {detectorState.currentMode.isOffsetCalibrationApplied
                 ? "Off"
                 : "On"}
             </Button>
             <Button
               size="xs"
               disabled={
-                !props.state.connected || props.state.isChangingSettings
+                !detectorState.connected || detectorState.isChangingSettings
               }
               loading={isOffsetCalibrating}
               onClick={() => void offsetCalibration()}
@@ -80,7 +74,7 @@ export const DynamicDetectorSettingsWidget: FC<
           <Group>
             <FaCheck
               visibility={
-                props.state.currentMode.isGainCalibrationApplied
+                detectorState.currentMode.isGainCalibrationApplied
                   ? "visible"
                   : "collapse"
               }
@@ -88,23 +82,25 @@ export const DynamicDetectorSettingsWidget: FC<
             <Button
               variant="light"
               disabled={
-                !props.state.connected || props.state.isChangingSettings
+                !detectorState.connected || detectorState.isChangingSettings
               }
               loading={isSetGainCalibration}
               size="xs"
               onClick={() =>
                 void setCalibrations(
-                  props.state.currentMode.isOffsetCalibrationApplied,
-                  !props.state.currentMode.isGainCalibrationApplied,
+                  detectorState.currentMode.isOffsetCalibrationApplied,
+                  !detectorState.currentMode.isGainCalibrationApplied,
                 )
               }
             >
-              {props.state.currentMode.isGainCalibrationApplied ? "Off" : "On"}
+              {detectorState.currentMode.isGainCalibrationApplied
+                ? "Off"
+                : "On"}
             </Button>
             <Button
               size="xs"
               disabled={
-                !props.state.connected || props.state.isChangingSettings
+                !detectorState.connected || detectorState.isChangingSettings
               }
               loading={isGainCalibrating}
               onClick={() => void gainCalibration()}
@@ -115,7 +111,7 @@ export const DynamicDetectorSettingsWidget: FC<
         </Group>
 
         <Button
-          disabled={props.state.isChangingSettings}
+          disabled={detectorState.isChangingSettings}
           loading={isReconnecting}
           onClick={() => void reconnect()}
         >

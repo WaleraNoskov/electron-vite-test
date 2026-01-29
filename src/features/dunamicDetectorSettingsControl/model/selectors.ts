@@ -14,3 +14,5 @@ export const selectIsEnablingGain = (state: RootState) =>
 
 export const selectIsReconnecting = (state: RootState) =>
   state.dynamicDetectorSettingsControl.reconnecting;
+
+export const selectDetectorState = (state: RootState) => state.dynamicDetector;
