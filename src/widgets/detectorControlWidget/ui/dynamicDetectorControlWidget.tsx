@@ -1,30 +1,27 @@
 import { useDynamicDetectorControl } from "../../../features/dynamicDetectorControl";
 import { Flex, SegmentedControl, Text, Title } from "@mantine/core";
-import { DynamicDetectorState } from "../../../entities/dynamicDetector";
-import { FC } from "react";
+import { useAppSelector } from "../../../application/hooks.ts";
+import { selectDetectorState } from "../../../features/dynamicDetectorControl/model/selectors.ts";
 
-interface DynamicDetectorControlWidgetProps {
-  state: DynamicDetectorState;
-}
-
-export const DynamicDetectorControlWidget: FC<
-  DynamicDetectorControlWidgetProps
-> = (props) => {
+export const DynamicDetectorControlWidget = () => {
   const { setExposure, setGain } = useDynamicDetectorControl();
 
-  if (!props.state) return;
+  const dynamicDetectorState = useAppSelector(selectDetectorState);
 
   return (
     <Flex direction="column" gap="sm">
-      <Title order={3}>{props.state.name}</Title>
+      <Title order={3}>{dynamicDetectorState.name}</Title>
 
-      <Text c={(props.state?.connected ?? false) ? "green" : "red"}>
-        {props.state.connected ? "Connected" : "Disconnected"}
+      <Text c={(dynamicDetectorState?.connected ?? false) ? "green" : "red"}>
+        {dynamicDetectorState.connected ? "Connected" : "Disconnected"}
       </Text>
       <div>
         <SegmentedControl
-          disabled={!props.state.connected || props.state.isChangingSettings}
-          value={props.state.currentMode.exposure.toString()}
+          disabled={
+            !dynamicDetectorState.connected ||
+            dynamicDetectorState.isChangingSettings
+          }
+          value={dynamicDetectorState.currentMode.exposure.toString()}
           data={[
             { value: "0", label: "40" },
             { value: "1", label: "50" },
@@ -45,8 +42,11 @@ export const DynamicDetectorControlWidget: FC<
 
       <div>
         <SegmentedControl
-          disabled={!props.state.connected || props.state.isChangingSettings}
-          value={props.state.currentMode.gain.toString()}
+          disabled={
+            !dynamicDetectorState.connected ||
+            dynamicDetectorState.isChangingSettings
+          }
+          value={dynamicDetectorState.currentMode.gain.toString()}
           data={["1", "2", "4"]}
           onChange={(e) => {
             const num = parseInt(e);
