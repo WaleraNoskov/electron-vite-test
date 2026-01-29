@@ -3,21 +3,15 @@ import {
   changeDynamicDetectorExposure,
   changeDynamicDetectorGain,
 } from "../model/thunks.ts";
-import { changeIsSettingsChanging } from "../../../entities/dynamicDetector";
 
 export function useDynamicDetectorControl() {
   const dispatch = useAppDispatch();
 
-  const setExposure = async (value: number) => {
-    dispatch(changeIsSettingsChanging(true));
+  const setExposure = async (value: number) =>
     await dispatch(changeDynamicDetectorExposure(value));
-    dispatch(changeIsSettingsChanging(false));
-  };
 
-  const setGain = async (value: number) => {
-    dispatch(changeIsSettingsChanging(true));
+  const setGain = async (value: number) =>
     await dispatch(changeDynamicDetectorGain(value));
-    dispatch(changeIsSettingsChanging(false));
-  };
+
   return { setExposure, setGain };
 }

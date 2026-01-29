@@ -19,6 +19,7 @@ export function useFilterSwitching() {
 
   return {
     filter: imageEditing.filter,
+    isChangingParameters: imageEditing.isChangingParameters,
     setFilter,
   };
 }

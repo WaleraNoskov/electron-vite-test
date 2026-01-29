@@ -2,21 +2,26 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { detectorApi } from "../../../shared/api/rest";
 import {
   changeConnected,
+  changeIsSettingsChanging,
   changeMode,
   changeName,
 } from "../../../entities/dynamicDetector";
 
 export const changeDynamicDetectorExposure = createAsyncThunk<void, number>(
   "dynamicDetectorControl/ChangeExposure",
-  async (exposure) => {
+  async (exposure, { dispatch }) => {
+    dispatch(changeIsSettingsChanging(true));
     await detectorApi.setExposure(exposure);
+    dispatch(changeIsSettingsChanging(false));
   },
 );
 
 export const changeDynamicDetectorGain = createAsyncThunk<void, number>(
   "dynamicDetectorControl/ChangeGain",
-  async (gain) => {
+  async (gain, { dispatch }) => {
+    dispatch(changeIsSettingsChanging(true));
     await detectorApi.setGain(gain);
+    dispatch(changeIsSettingsChanging(false));
   },
 );
 

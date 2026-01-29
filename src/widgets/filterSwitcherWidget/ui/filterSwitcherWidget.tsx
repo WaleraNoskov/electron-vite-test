@@ -2,12 +2,13 @@ import { useFilterSwitching } from "../../../features/imageEditing";
 import { Flex, SegmentedControl, Title } from "@mantine/core";
 
 export const FilterSwitcherWidget = () => {
-  const { filter, setFilter } = useFilterSwitching();
+  const { filter, setFilter, isChangingParameters } = useFilterSwitching();
   return (
     <>
       <Flex direction="column" gap="sm">
         <Title order={3}>Current Filter</Title>
         <SegmentedControl
+          disabled={isChangingParameters}
           orientation="horizontal"
           value={filter.toString()}
           data={[

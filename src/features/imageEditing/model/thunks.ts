@@ -2,6 +2,7 @@ import {
   Frame,
   changeCurrentFrame,
   changeFilter,
+  changeIsSettingsChanging,
 } from "../../../entities/imageProcessing";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../../application/store.ts";
@@ -24,7 +25,12 @@ export const trySetFilter = createAsyncThunk<
   void,
   UpdateOutputPipelineInputDto
 >("imageEditing/trySetFilter", async (dto, { dispatch }) => {
-  await imageEditingApi.updateOutputPipeline(dto);
+  try {
+    dispatch(changeIsSettingsChanging(true));
+    await imageEditingApi.updateOutputPipeline(dto);
 
-  dispatch(changeFilter(dto.filter));
+    dispatch(changeFilter(dto.filter));
+  } finally {
+    dispatch(changeIsSettingsChanging(false));
+  }
 });
