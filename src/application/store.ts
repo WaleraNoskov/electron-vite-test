@@ -4,6 +4,7 @@ import { initSignalrListeners } from "../shared/api/signalr/model/init.ts";
 import { FrameStore } from "../shared/services/frameBuffer";
 import { imageProcessingReducer } from "../entities/imageProcessing";
 import { dynamicDetectorSettingsControlReducer } from "../features/dunamicDetectorSettingsControl/model/slice.ts";
+import { imageEditingReducer } from "../features/imageEditing";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
 
     //feature reducers
     dynamicDetectorSettingsControl: dynamicDetectorSettingsControlReducer,
+    imageEditingReducer: imageEditingReducer,
   },
 });
 
