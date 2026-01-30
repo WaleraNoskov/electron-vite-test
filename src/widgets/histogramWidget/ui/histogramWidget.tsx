@@ -1,7 +1,7 @@
-import { useAppSelector } from "../../../application/hooks.ts";
-import { selectImageEditingState } from "../../../features/imageEditing";
 import { FC, useEffect, useRef } from "react";
 import "./histogramWidget.scss";
+import { useHistogram } from "../../../features/imageEditing/hooks/useHistogram.ts";
+import { Flex, Group, Switch } from "@mantine/core";
 
 export interface HistogramWidgetProps {
   width?: number | null;
@@ -9,7 +9,12 @@ export interface HistogramWidgetProps {
 }
 
 export const HistogramWidget: FC<HistogramWidgetProps> = (props) => {
-  const state = useAppSelector(selectImageEditingState);
+  const {
+    histogram,
+    autoHistogramEnabled,
+    setAutoHistogramEnabled,
+    isChangingParameters,
+  } = useHistogram();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -22,8 +27,8 @@ export const HistogramWidget: FC<HistogramWidgetProps> = (props) => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const bins = state.histogram.length;
-    const max = Math.max(...state.histogram);
+    const bins = histogram.length;
+    const max = Math.max(...histogram);
 
     ctx.clearRect(0, 0, width, height);
 
@@ -34,19 +39,31 @@ export const HistogramWidget: FC<HistogramWidgetProps> = (props) => {
     ctx.fillStyle = "#4dabf7";
 
     for (let i = 0; i < bins; i++) {
-      const value = state.histogram[i];
+      const value = histogram[i];
       const barHeight = (value / max) * height;
 
       ctx.fillRect(i * barWidth, height - barHeight, barWidth, barHeight);
     }
-  }, [state.histogram, props]);
+  }, [histogram, props]);
 
   return (
-    <canvas
-      className="histogramWidget"
-      ref={canvasRef}
-      width={props.width ?? 100}
-      height={props.height ?? 100}
-    />
+    <Flex direction="column" gap="md">
+      <canvas
+        className="histogramWidget"
+        ref={canvasRef}
+        width={props.width ?? 100}
+        height={props.height ?? 100}
+      />
+      <Group>
+        <Switch
+          disabled={isChangingParameters}
+          label="Auto histogram"
+          checked={autoHistogramEnabled}
+          onChange={(e) =>
+            void setAutoHistogramEnabled(e.currentTarget.checked)
+          }
+        />
+      </Group>
+    </Flex>
   );
 };

@@ -30,7 +30,7 @@ export const DynamicDetectorSettingsWidget = () => {
         <Title order={3}>Settings</Title>
         <Group align="center" justify="space-between">
           <Text>Offset calibration</Text>
-          <Group>
+          <Group gap="xs">
             <FaCheck
               visibility={
                 detectorState.currentMode.isOffsetCalibrationApplied
@@ -71,7 +71,7 @@ export const DynamicDetectorSettingsWidget = () => {
 
         <Group align="center" justify="space-between">
           <Text>Gain calibration</Text>
-          <Group>
+          <Group gap="xs">
             <FaCheck
               visibility={
                 detectorState.currentMode.isGainCalibrationApplied

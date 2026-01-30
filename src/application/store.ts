@@ -14,7 +14,7 @@ export const store = configureStore({
 
     //feature reducers
     dynamicDetectorSettingsControl: dynamicDetectorSettingsControlReducer,
-    imageEditingReducer: imageEditingReducer,
+    imageEditing: imageEditingReducer,
   },
 });
 

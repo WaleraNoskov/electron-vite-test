@@ -8,7 +8,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../../application/store.ts";
 import { UpdateOutputPipelineInputDto } from "../../../shared/api/dto";
 import { imageEditingApi } from "../../../shared/api/rest/model/imageEditingApi.ts";
-import { setHistogram } from "./slice.ts";
+import { setAutoHistogramEnabled, setHistogram } from "./slice.ts";
 
 export const imageEditingFrameReceived = createAsyncThunk<void, Frame>(
   "imageEditing/imageProcessingFrameReceived",
@@ -25,19 +25,47 @@ export const imageEditingFrameReceived = createAsyncThunk<void, Frame>(
   },
 );
 
-export const trySetFilter = createAsyncThunk<
-  void,
-  UpdateOutputPipelineInputDto
->("imageEditing/trySetFilter", async (dto, { dispatch }) => {
-  try {
-    dispatch(changeIsSettingsChanging(true));
-    await imageEditingApi.updateOutputPipeline(dto);
+export const trySetFilter = createAsyncThunk<void, number>(
+  "imageEditing/trySetFilter",
+  async (filter, { dispatch, getState }) => {
+    try {
+      dispatch(changeIsSettingsChanging(true));
 
-    dispatch(changeFilter(dto.filter));
-  } finally {
-    dispatch(changeIsSettingsChanging(false));
-  }
-});
+      const state = getState() as RootState;
+      const dto: UpdateOutputPipelineInputDto = {
+        filter: filter,
+        enableAutoHistogram: state.imageEditing.autoHistogramEnabled,
+      };
+
+      await imageEditingApi.updateOutputPipeline(dto);
+
+      dispatch(changeFilter(dto.filter));
+    } finally {
+      dispatch(changeIsSettingsChanging(false));
+    }
+  },
+);
+
+export const trySetAutoHistogram = createAsyncThunk<void, boolean>(
+  "imageEditing/trySetAutoHistogram",
+  async (enabled, { dispatch, getState }) => {
+    try {
+      dispatch(changeIsSettingsChanging(true));
+
+      const state = getState() as RootState;
+      const dto: UpdateOutputPipelineInputDto = {
+        filter: state.imageProcessing.filter,
+        enableAutoHistogram: enabled,
+      };
+
+      await imageEditingApi.updateOutputPipeline(dto);
+
+      dispatch(setAutoHistogramEnabled(dto.enableAutoHistogram));
+    } finally {
+      dispatch(changeIsSettingsChanging(false));
+    }
+  },
+);
 
 function calculateHistogramBinned(data: Uint16Array, bins = 256): Uint32Array {
   const histogram = new Uint32Array(bins);

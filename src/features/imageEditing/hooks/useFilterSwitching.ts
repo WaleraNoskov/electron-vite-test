@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../../application/hooks.ts";
 import { selectImageProcessingState } from "../model/selectors.ts";
 import { trySetFilter } from "../model/thunks.ts";
-import { UpdateOutputPipelineInputDto } from "../../../shared/api/dto";
 
 export function useFilterSwitching() {
   const imageEditing = useAppSelector(selectImageProcessingState);
@@ -9,12 +8,7 @@ export function useFilterSwitching() {
 
   // eslint-disable-next-line @typescript-eslint/require-await
   const setFilter = async (filter: number) => {
-    const dto: UpdateOutputPipelineInputDto = {
-      filter: filter,
-      enableAutoHistogram: false,
-    };
-
-    await dispatch(trySetFilter(dto));
+    await dispatch(trySetFilter(filter));
   };
 
   return {
