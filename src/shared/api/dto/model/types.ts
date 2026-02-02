@@ -1,3 +1,5 @@
+import { CtStatus, CtType } from "../../../../entities/ct";
+
 export interface DynamicDetectorModeDto {
   id: number;
   exposure: number;
@@ -30,4 +32,18 @@ export interface ImageDto {
 export interface UpdateOutputPipelineInputDto {
   filter: number;
   enableAutoHistogram: boolean;
+}
+
+export interface CtStateDto {
+  status: CtStatus;
+  type: CtType;
+  validationErrors: string[];
+  stepsDone: number;
+  totalSteps: number;
+  timeToFinish: number;
+}
+
+export interface CtSettingsDto {
+  type: CtType;
+  steps: number;
 }

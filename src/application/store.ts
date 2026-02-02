@@ -1,16 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { dynamicDetectorReducer } from "../entities/dynamicDetector";
-import { initSignalrListeners } from "../shared/api/signalr/model/init.ts";
+import {
+  initCtSignalrListeners,
+  initHardwareSignalrListeners,
+} from "../shared/api/signalr";
 import { FrameStore } from "../shared/services/frameBuffer";
 import { imageProcessingReducer } from "../entities/imageProcessing";
 import { dynamicDetectorSettingsControlReducer } from "../features/dunamicDetectorSettingsControl/model/slice.ts";
 import { imageEditingReducer } from "../features/imageEditing";
+import { ctReducer } from "../entities/ct";
 
 export const store = configureStore({
   reducer: {
     //core reducers
     dynamicDetector: dynamicDetectorReducer,
     imageProcessing: imageProcessingReducer,
+    ct: ctReducer,
 
     //feature reducers
     dynamicDetectorSettingsControl: dynamicDetectorSettingsControlReducer,
@@ -18,7 +23,9 @@ export const store = configureStore({
   },
 });
 
-initSignalrListeners(store);
+initHardwareSignalrListeners(store);
+initCtSignalrListeners(store);
+
 export const frameStore = new FrameStore();
 
 export type AppStore = typeof store;

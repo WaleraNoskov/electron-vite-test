@@ -1,6 +1,5 @@
-import hardwareSignalrConnection from "./hardwareSignalrConnection.ts";
 import { AppStore, frameStore } from "../../../../application/store.ts";
-import { DynamicDetectorStateDto, ImageDto } from "../../dto";
+import { CtStateDto, DynamicDetectorStateDto, ImageDto } from "../../dto";
 import {
   changeConnected,
   changeMode,
@@ -8,8 +7,20 @@ import {
 } from "../../../../entities/dynamicDetector";
 import { imageEditingFrameReceived } from "../../../../features/imageEditing";
 import { Frame } from "../../../../entities/imageProcessing";
+import {
+  ctSignalrConnection,
+  hardwareSignalrConnection,
+} from "./signalrConnections.ts";
+import {
+  setDoneSteps,
+  setStatus,
+  setTimeToFinish,
+  setTotalSteps,
+  setType,
+  setValidationErrors,
+} from "../../../../entities/ct";
 
-export function initSignalrListeners(store: AppStore) {
+export function initHardwareSignalrListeners(store: AppStore) {
   hardwareSignalrConnection.on(
     "newDetectorState",
     (value: DynamicDetectorStateDto) => {
@@ -28,5 +39,16 @@ export function initSignalrListeners(store: AppStore) {
       height: value.height,
     };
     void store.dispatch(imageEditingFrameReceived(image));
+  });
+}
+
+export function initCtSignalrListeners(store: AppStore) {
+  ctSignalrConnection.on("newCtState", (value: CtStateDto) => {
+    store.dispatch(setStatus(value.status));
+    store.dispatch(setType(value.type));
+    store.dispatch(setValidationErrors(value.validationErrors));
+    store.dispatch(setDoneSteps(value.stepsDone));
+    store.dispatch(setTotalSteps(value.totalSteps));
+    store.dispatch(setTimeToFinish(value.timeToFinish));
   });
 }

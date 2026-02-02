@@ -1,1 +1,2 @@
-export * from "./model/hardwareSignalrConnection.ts";
+export * from "./model/signalrConnections";
+export * from "./model/init";
