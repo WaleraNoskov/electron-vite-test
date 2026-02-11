@@ -1,5 +1,10 @@
 import { AppStore, frameStore } from "../../../../application/store.ts";
-import { CtStateDto, DynamicDetectorStateDto, ImageDto } from "../../dto";
+import {
+  CtSettingsDto,
+  CtStepsChangedDto,
+  DynamicDetectorStateDto,
+  ImageDto,
+} from "../../dto";
 import {
   changeConnected,
   changeMode,
@@ -12,12 +17,13 @@ import {
   hardwareSignalrConnection,
 } from "./signalrConnections.ts";
 import {
+  CtStatus,
   setDoneSteps,
   setStatus,
+  setStepIds,
   setTimeToFinish,
   setTotalSteps,
   setType,
-  setValidationErrors,
 } from "../../../../entities/ct";
 
 export function initHardwareSignalrListeners(store: AppStore) {
@@ -43,12 +49,19 @@ export function initHardwareSignalrListeners(store: AppStore) {
 }
 
 export function initCtSignalrListeners(store: AppStore) {
-  ctSignalrConnection.on("newCtState", (value: CtStateDto) => {
-    store.dispatch(setStatus(value.status));
+  ctSignalrConnection.on("ctSettingsChanged", (value: CtSettingsDto) => {
     store.dispatch(setType(value.type));
-    store.dispatch(setValidationErrors(value.validationErrors));
-    store.dispatch(setDoneSteps(value.stepsDone));
+    store.dispatch(setTotalSteps(value.steps));
+  });
+  ctSignalrConnection.on("ctStatusChanged", (value: CtStatus) => {
+    store.dispatch(setStatus(value));
+  });
+  ctSignalrConnection.on("ctStepChanged", (value: CtStepsChangedDto) => {
+    store.dispatch(setDoneSteps(value.step));
     store.dispatch(setTotalSteps(value.totalSteps));
-    store.dispatch(setTimeToFinish(value.timeToFinish));
+    store.dispatch(setStepIds(value.stepIds));
+  });
+  ctSignalrConnection.on("timeToFinishReestimated", (value: number) => {
+    store.dispatch(setTimeToFinish(value));
   });
 }

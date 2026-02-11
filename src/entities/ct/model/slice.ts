@@ -23,6 +23,7 @@ export interface CtState {
   stepsDone: number;
   totalSteps: number;
   timeToFinish: number;
+  stepIds: string[];
 }
 
 const initialState: CtState = {
@@ -32,6 +33,7 @@ const initialState: CtState = {
   stepsDone: 0,
   totalSteps: 0,
   timeToFinish: 0,
+  stepIds: [],
 };
 
 const ctSlice = createSlice({
@@ -53,8 +55,8 @@ const ctSlice = createSlice({
     setTimeToFinish: (state, action: PayloadAction<number>) => {
       state.timeToFinish = action.payload;
     },
-    setValidationErrors: (state, action: PayloadAction<string[]>) => {
-      state.validationErrors = action.payload;
+    setStepIds: (state, action: PayloadAction<string[]>) => {
+      state.stepIds = action.payload;
     },
   },
 });
@@ -65,6 +67,6 @@ export const {
   setDoneSteps,
   setTotalSteps,
   setTimeToFinish,
-  setValidationErrors,
+  setStepIds,
 } = ctSlice.actions;
 export const ctReducer = ctSlice.reducer;

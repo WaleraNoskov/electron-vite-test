@@ -37,13 +37,19 @@ export interface UpdateOutputPipelineInputDto {
 export interface CtStateDto {
   status: CtStatus;
   type: CtType;
-  validationErrors: string[];
   stepsDone: number;
   totalSteps: number;
   timeToFinish: number;
 }
 
 export interface CtSettingsDto {
+  sessionId: string;
   type: CtType;
   steps: number;
+}
+
+export interface CtStepsChangedDto {
+  step: number;
+  totalSteps: number;
+  stepIds: string[];
 }

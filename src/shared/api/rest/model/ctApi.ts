@@ -33,6 +33,16 @@ class CtApi {
     if (!res.ok) throw new Error("Could not set ct settings");
   }
 
+  async startSession(dto: CtSettingsDto): Promise<void> {
+    const res = await fetch(API_URL + "/ct/start-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dto),
+    });
+
+    if (!res.ok) throw new Error("Could not start session");
+  }
+
   async start(): Promise<void> {
     const res = await fetch(API_URL + "/ct/start", {
       method: "POST",
@@ -42,7 +52,7 @@ class CtApi {
   }
 
   async stop(): Promise<void> {
-    const res = await fetch(API_URL + "/ct/stop", {
+    const res = await fetch(API_URL + "/ct/emergency-stop", {
       method: "POST",
     });
 
@@ -63,6 +73,14 @@ class CtApi {
     });
 
     if (!res.ok) throw new Error("Could not move home ct");
+  }
+
+  async restore(): Promise<void> {
+    const res = await fetch(API_URL + "/ct/restore", {
+      method: "POST",
+    });
+
+    if (!res.ok) throw new Error("Could not restore ct");
   }
 }
 
