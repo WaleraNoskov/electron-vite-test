@@ -9,6 +9,7 @@ import { imageProcessingReducer } from "../entities/imageProcessing";
 import { dynamicDetectorSettingsControlReducer } from "../features/dunamicDetectorSettingsControl/model/slice.ts";
 import { imageEditingReducer } from "../features/imageEditing";
 import { ctReducer } from "../entities/ct";
+import { ctControlReducer } from "../features/ctControl";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     //feature reducers
     dynamicDetectorSettingsControl: dynamicDetectorSettingsControlReducer,
     imageEditing: imageEditingReducer,
+    ctControl: ctControlReducer,
   },
 });
 

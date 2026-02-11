@@ -51,7 +51,7 @@ class CtApi {
     if (!res.ok) throw new Error("Could not start ct");
   }
 
-  async stop(): Promise<void> {
+  async emergencyStop(): Promise<void> {
     const res = await fetch(API_URL + "/ct/emergency-stop", {
       method: "POST",
     });
@@ -65,6 +65,14 @@ class CtApi {
     });
 
     if (!res.ok) throw new Error("Could not pause ct");
+  }
+
+  async continue(): Promise<void> {
+    const res = await fetch(API_URL + "/ct/continue", {
+      method: "POST",
+    });
+
+    if (!res.ok) throw new Error("Could not continue ct");
   }
 
   async moveHome(): Promise<void> {

@@ -40,10 +40,10 @@ export interface CtStateDto {
   stepsDone: number;
   totalSteps: number;
   timeToFinish: number;
+  stepIds: string[];
 }
 
 export interface CtSettingsDto {
-  sessionId: string;
   type: CtType;
   steps: number;
 }
