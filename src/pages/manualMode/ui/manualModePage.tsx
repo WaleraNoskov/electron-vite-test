@@ -1,5 +1,5 @@
 import { DynamicDetectorControlWidget } from "../../../widgets/detectorControlWidget";
-import { Center, Flex } from "@mantine/core";
+import { Flex, Grid } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "../../../application/hooks.ts";
 import { useEffect, useRef, useState } from "react";
 import { fetchDynamicDetectorState } from "../../../features/dynamicDetectorControl/model/thunks.ts";
@@ -7,6 +7,7 @@ import { DynamicDetectorSettingsWidget } from "../../../widgets/dynamicDetectorS
 import { ImageViewWidget } from "../../../widgets/imageViewWidget";
 import { FilterSwitcherWidget } from "../../../widgets/filterSwitcherWidget";
 import { HistogramWidget } from "../../../widgets/histogramWidget/ui/histogramWidget.tsx";
+import { CtControlWidget } from "../../../widgets/ctControl/ui/ctControlWidget.tsx";
 
 function ManualModePage() {
   const dispatch = useAppDispatch();
@@ -27,9 +28,16 @@ function ManualModePage() {
   }, []);
 
   return (
-    <Center>
-      <Flex gap="xl">
+    <Grid>
+      <Grid.Col span={3} mx="xl">
+        <CtControlWidget />
+      </Grid.Col>
+
+      <Grid.Col span="auto">
         <ImageViewWidget />
+      </Grid.Col>
+
+      <Grid.Col span={3} mx="xl">
         <Flex direction="column" gap="xl" ref={ref}>
           <DynamicDetectorControlWidget />
           <DynamicDetectorSettingsWidget />
@@ -38,8 +46,8 @@ function ManualModePage() {
             <HistogramWidget width={width} height={200} />
           </div>
         </Flex>
-      </Flex>
-    </Center>
+      </Grid.Col>
+    </Grid>
   );
 }
 

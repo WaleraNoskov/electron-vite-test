@@ -8,7 +8,7 @@ import {
   tryPause,
   tryRestore,
   tryStart,
-  tryStartSession,
+  tryRestartSession,
 } from "./thunks.ts";
 
 export interface CtControlState {
@@ -43,13 +43,13 @@ const slice = createSlice({
       .addCase(tryFetchSettings.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(tryStartSession.pending, (state) => {
+      .addCase(tryRestartSession.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(tryStartSession.fulfilled, (state) => {
+      .addCase(tryRestartSession.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(tryStartSession.rejected, (state) => {
+      .addCase(tryRestartSession.rejected, (state) => {
         state.isLoading = false;
       })
       .addCase(tryStart.pending, (state) => {

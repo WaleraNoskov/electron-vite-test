@@ -2,24 +2,29 @@ import { useAppDispatch } from "../../../application/hooks.ts";
 import {
   tryContinue,
   tryEmergencyStop,
+  tryFetchSessionState,
   tryFetchState,
   tryMoveHome,
   tryPause,
   tryRestore,
   tryStart,
-  tryStartSession,
+  tryRestartSession,
 } from "../model/thunks.ts";
 import { CtType } from "../../../entities/ct";
 
 export function useCtControl() {
   const dispatch = useAppDispatch();
 
-  const fetchState = async () => {
+  const fetchCtState = async () => {
     await dispatch(tryFetchState());
   };
 
-  const startSession = async (type: CtType, steps: number) => {
-    await dispatch(tryStartSession({ type: type, steps: steps }));
+  const fetchCtSessionState = async () => {
+    await dispatch(tryFetchSessionState());
+  };
+
+  const restartSession = async (type: CtType, steps: number) => {
+    await dispatch(tryRestartSession({ type: type, steps: steps }));
   };
 
   const start = async () => {
@@ -47,8 +52,9 @@ export function useCtControl() {
   };
 
   return {
-    fetchState,
-    startSession,
+    fetchCtState,
+    fetchCtSessionState,
+    restartSession: restartSession,
     start,
     emergencyStop,
     pause,

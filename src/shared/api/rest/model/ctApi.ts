@@ -1,4 +1,4 @@
-import { CtSettingsDto, CtStateDto } from "../../dto";
+import { CtSessionStateDto, CtSettingsDto, CtStateDto } from "../../dto";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -11,6 +11,16 @@ class CtApi {
     if (!res.ok) throw new Error("Could not get ct state");
 
     return (await res.json()) as CtStateDto;
+  }
+
+  async getSessionState(): Promise<CtSessionStateDto> {
+    const res = await fetch(API_URL + "/ct/get-session-state", {
+      method: "GET",
+    });
+
+    if (!res.ok) throw new Error("Could not get ct state");
+
+    return (await res.json()) as CtSessionStateDto;
   }
 
   async getSettings(): Promise<CtSettingsDto> {
@@ -33,10 +43,12 @@ class CtApi {
     if (!res.ok) throw new Error("Could not set ct settings");
   }
 
-  async startSession(dto: CtSettingsDto): Promise<void> {
-    const res = await fetch(API_URL + "/ct/start-session", {
+  async restartSession(dto: CtSettingsDto): Promise<void> {
+    const res = await fetch(API_URL + "/ct/restart-session", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(dto),
     });
 

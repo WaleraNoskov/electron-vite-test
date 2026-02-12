@@ -1,5 +1,6 @@
 import { AppStore, frameStore } from "../../../../application/store.ts";
 import {
+  CtSessionStateDto,
   CtSettingsDto,
   CtStepsChangedDto,
   DynamicDetectorStateDto,
@@ -19,6 +20,7 @@ import {
 import {
   CtStatus,
   setDoneSteps,
+  setSessionIsRunning,
   setStatus,
   setStepIds,
   setTimeToFinish,
@@ -61,6 +63,12 @@ export function initCtSignalrListeners(store: AppStore) {
     store.dispatch(setTotalSteps(value.totalSteps));
     store.dispatch(setStepIds(value.stepIds));
   });
+  ctSignalrConnection.on(
+    "ctSessionStateChanged",
+    (value: CtSessionStateDto) => {
+      store.dispatch(setSessionIsRunning(value.isRunning));
+    },
+  );
   ctSignalrConnection.on("timeToFinishReestimated", (value: number) => {
     store.dispatch(setTimeToFinish(value));
   });

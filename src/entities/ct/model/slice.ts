@@ -5,9 +5,13 @@ export enum CtStatus {
   Idle,
   Starting,
   Running,
+  Pausing,
+  Paused,
+  Continuing,
   Finishing,
   Cancelling,
   MovingHome,
+  Restoring,
 }
 
 export enum CtType {
@@ -24,6 +28,7 @@ export interface CtState {
   totalSteps: number;
   timeToFinish: number;
   stepIds: string[];
+  isSessionRunning: boolean;
 }
 
 const initialState: CtState = {
@@ -34,6 +39,7 @@ const initialState: CtState = {
   totalSteps: 0,
   timeToFinish: 0,
   stepIds: [],
+  isSessionRunning: false,
 };
 
 const ctSlice = createSlice({
@@ -58,6 +64,9 @@ const ctSlice = createSlice({
     setStepIds: (state, action: PayloadAction<string[]>) => {
       state.stepIds = action.payload;
     },
+    setSessionIsRunning: (state, action: PayloadAction<boolean>) => {
+      state.isSessionRunning = action.payload;
+    },
   },
 });
 
@@ -68,5 +77,6 @@ export const {
   setTotalSteps,
   setTimeToFinish,
   setStepIds,
+  setSessionIsRunning,
 } = ctSlice.actions;
 export const ctReducer = ctSlice.reducer;

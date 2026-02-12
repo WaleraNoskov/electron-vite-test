@@ -43,6 +43,10 @@ export interface CtStateDto {
   stepIds: string[];
 }
 
+export interface CtSessionStateDto {
+  isRunning: boolean;
+}
+
 export interface CtSettingsDto {
   type: CtType;
   steps: number;

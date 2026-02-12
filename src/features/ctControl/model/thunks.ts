@@ -3,6 +3,7 @@ import { CtSettingsDto } from "../../../shared/api/dto";
 import { ctApi } from "../../../shared/api/rest/model/ctApi.ts";
 import {
   setDoneSteps,
+  setSessionIsRunning,
   setStatus,
   setStepIds,
   setTotalSteps,
@@ -19,6 +20,18 @@ export const tryFetchState = createAsyncThunk(
       dispatch(setDoneSteps(state.stepsDone));
       dispatch(setTotalSteps(state.totalSteps));
       dispatch(setStepIds(state.stepIds));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+);
+
+export const tryFetchSessionState = createAsyncThunk(
+  "ct/fetchSessionState",
+  async (_, { dispatch }) => {
+    try {
+      const state = await ctApi.getSessionState();
+      dispatch(setSessionIsRunning(state.isRunning));
     } catch (error) {
       console.error(error);
     }
@@ -49,11 +62,11 @@ export const trySetSettings = createAsyncThunk<void, CtSettingsDto>(
   },
 );
 
-export const tryStartSession = createAsyncThunk<void, CtSettingsDto>(
+export const tryRestartSession = createAsyncThunk<void, CtSettingsDto>(
   "ct/startSession",
   async (settings) => {
     try {
-      await ctApi.startSession(settings);
+      await ctApi.restartSession(settings);
     } catch (error) {
       console.error(error);
     }
